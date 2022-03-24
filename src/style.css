@@ -4,6 +4,7 @@ body {
 }
 
 .hello {
+  font-size: large;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14,5 +15,25 @@ body {
   gap: 0.4rem;
   padding: 0.4rem;
   color: red;
+}
+
+button {
+  font-weight: 700;
+  color: #fff;
+  background-color: #f00;
+  border: solid #f00 0.2rem;
+  border-radius: 0.4rem;
+  width: 70%;
+  font-size: 1rem;
+  padding: 0.5rem;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #f00;
+  background-color: #fff;
 }
 /*# sourceMappingURL=style.css.map */
