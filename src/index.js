@@ -1,3 +1,12 @@
+/** TESTANDO COMENTÁRIOS COM A EXTENSÃO BETTER COMMENTS
+ * !    . ALERTA VERMELHO
+ * TODO . teste TO DO
+ * ?    . Teste queries
+ * *    . Highlighted text
+ * //   . strikethrough riscado TEXTO RISCADO
+ *
+ */
+
 import _ from 'lodash';
 import printMe from './print.js';
 import './style.scss';
