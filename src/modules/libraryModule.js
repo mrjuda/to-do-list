@@ -32,13 +32,13 @@ export default class Library {
 
   pullFromStorage = () => {
     const parsed = JSON.parse(sessionStorage.getItem('strShelf'));
-    let counter = this.shelf.length;
+    let counter = 1;
     const preShelf = [];
     for (let i = 0; i < this.shelf.length; i += 1) {
       const parsedBook = parsed[`${counter}`];
       const tempShelf = Library.displayBook(parsedBook.title, counter);
       preShelf.unshift(tempShelf);
-      counter -= 1;
+      counter += 1;
     }
 
     this.frontShelf.innerHTML = '';
