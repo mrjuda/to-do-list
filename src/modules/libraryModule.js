@@ -37,24 +37,20 @@ export default class Library {
 
     for (let i = 0; i < shelfSize; i += 1) {
       // Returns the Nth item saved on the localstorage
-      console.log('LINE 39: shelf.toString(): ' + this.shelf.toString() + '\n pllFrmStrg > shelf = ' + this.shelf);
-      console.log('pllFrmStrg > preShelf = ' + this.preShelf);
       if (this.shelf.length === 0) {
-        this.shelf.push(Object.values(parsed)[i]);
+        for (let i = 0; i < shelfSize; i += 1) {
+          this.shelf.push(Object.values(parsed)[i]);
+        }
       }
-      setTimeout(() => { console.log('LINE 43: pllFrmStrg > for... i = ' + i); }, 500);
       const parsedBook = parsed[`${counter}`];
       const tempShelf = Library.displayBook(parsedBook.title, counter);
       preShelf.push(tempShelf);
       counter += 1;
     }
-    // console.log('pllFrmStrg > shelf = ' + this.shelf + '\n pllFrmStrg > preShelf = ' + this.preShelf);
-    // console.log('pllFrmStrg > preShelf.length = ' + this.preShelf.length);
     return preShelf;
   }
 
-  paintToPage = (caller) => {
-    console.log('caller: ' + caller + ' > paintToPage');
+  paintToPage = () => {
     const preShelf = this.pullFromStorage();
     this.frontShelf.innerHTML = '';
     for (let i = 0; i < preShelf.length; i += 1) {
@@ -68,20 +64,17 @@ export default class Library {
   }
 
   updateShelf = () => {
-    // console.log('bookshelf A: ' + this.bookshelf);
     this.bookshelf = new StrShelf();
 
     let counter = 0;
     for (let i = 0; i < this.shelf.length; i += 1) {
       counter += 1;
       this.shelf[i].id = counter;
-      // this.shelf[i].index = counter;
     }
     for (let i = 0; i < this.shelf.length; i += 1) {
       // GIVES THE BOOK OBJ AN ID #NUMBER
       this.bookshelf[`${this.shelf[i].id}`] = this.shelf[i];
     }
-    // console.log('bookshelf C: ' + this.bookshelf);
     Library.pushToStorage(this.bookshelf);
   }
 
@@ -96,28 +89,12 @@ export default class Library {
   }
 
   removeBook = (id) => {
-    // this.bookshelf = new StrShelf();
-
-    // this.frontShelf.innerHTML = '';
-    // this.removeButton = document.querySelectorAll('.removeButton');
-
     for (let i = 0; i < this.shelf.length; i += 1) {
-      console.log('removeBook > shelf.length: ' + this.shelf.length);
-      console.log('removeBook: shelf: ' + this.shelf[0]);
       if (this.shelf[i].id === parseInt(id, 10)) {
         this.shelf.splice(i, 1);
         this.updateShelf();
       }
-
       this.paintToPage();
-      // this.setRemoveListeners();
-      // this.removeButton = document.querySelectorAll('.removeButton');
-      // this.removeButton.forEach((button) => {
-      //   button.addEventListener('click', (e) => {
-      //     console.log('addevent-AA-INSIDEfor-loop');
-      //     this.removeBook(e.target.id);
-      //   });
-      // });
     }
   }
 
@@ -125,7 +102,6 @@ export default class Library {
     this.removeButton = document.querySelectorAll('.removeButton');
     this.removeButton.forEach((button) => {
       button.addEventListener('click', (e) => {
-        // console.log('addevent-AA-OUTSIDE-for-loop');
         console.log(e.target.id);
         this.removeBook(e.target.id);
       });
