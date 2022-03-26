@@ -1,6 +1,6 @@
-import _ from 'lodash';
+// import _ from 'lodash';
+// import printMe from './print.js';
 import Library from './modules/libraryModule.js';
-import printMe from './print.js';
 import './style.scss';
 
 // const libraryBtn = document.getElementById('LibraryBtn');
@@ -21,20 +21,20 @@ import './style.scss';
 const library = new Library();
 library.setUpAddListener();
 
-function component() {
-  const element = document.createElement('div');
-  const btn = document.createElement('button');
+// function component() {
+//   const element = document.createElement('div');
+//   const btn = document.createElement('button');
 
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['JT\'s', 'To-do List'], ' ');
+//   // Lodash, now imported by this script
+//   element.innerHTML = _.join(['JT\'s', 'To-do List'], ' ');
 
-  btn.innerHTML = 'Click me and check console';
-  btn.onclick = printMe;
-  btn.classList.add('clear-all-btn');
-  element.classList.add('hello');
-  element.appendChild(btn);
+//   btn.innerHTML = 'Click me and check console';
+//   btn.onclick = printMe;
+//   btn.classList.add('clear-all-btn');
+//   element.classList.add('hello');
+//   element.appendChild(btn);
 
-  return element;
-}
+//   return element;
+// }
 
-document.body.appendChild(component());
+// document.body.appendChild(component());
