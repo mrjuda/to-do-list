@@ -7,23 +7,28 @@
 </head>
 <body>
     <h1>To-do List</h1>
-    <div>JudaLabs tasks</div>
-    <ul>
-        <li class="empty-slot">
-            Add to your list
-        </li>
-        <li class="unchecked-slot">
-            <div class="box-unchecked"> </div>
-            <div class="task">Make cuzcuz</div>
-            <div class="handle"> </div>
-        </li>
-        <li class="unchecked-slot">
-            Make coffee
-        </li>
-        <li class="checked-slot">
-            Completed task
-        </li>
-    </ul>
-    <div class="clear-done">Clear all completed</div>
+
+    <div class="to-do-container">
+        <div class="to-do-header">
+          <div class="to-do-header-title">
+            Morning to-dos
+          </div>
+          <div class="refresh-btn"></div>
+        </div>
+        <div class="add-new" id="add-new">
+          <input type="text" placeholder="Add to your JL's list..." class="new-input" id="newTitle">
+          <div class="new-input-btn" id="add-btn"></div>
+        </div>
+        
+        <div id="task-container" class="task-container">
+            <div id="frontShelf" class="front-shelf">
+                <!-- Here goes the dynamic tasks -->
+            </div>
+        </div>
+        <button type="button" class="clear-all-btn" id="clear-all-btn">
+            Clear all completed
+        </button>
+    </div>
+
 </body>
 </html>

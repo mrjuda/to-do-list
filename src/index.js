@@ -1,15 +1,25 @@
-/** TESTANDO COMENTÁRIOS COM A EXTENSÃO BETTER COMMENTS
- * !    . ALERTA VERMELHO
- * TODO . teste TO DO
- * ?    . Teste queries
- * *    . Highlighted text
- * //   . strikethrough riscado TEXTO RISCADO
- *
- */
-
 import _ from 'lodash';
+import Library from './modules/libraryModule.js';
 import printMe from './print.js';
 import './style.scss';
+
+// const libraryBtn = document.getElementById('LibraryBtn');
+// const newBtn = document.getElementById('NewBtn');
+// const libraryPage = document.getElementById('Library');
+// const newPage = document.getElementById('New');
+// const libraryStr = 'library';
+// const hidden = 'hidden';
+// const newStr = 'new';
+// const contactStr = 'contact';
+// const pageSetup = () => {
+//   // newPage.className = hidden;
+//   // contactPage.className = hidden;
+// };
+
+// pageSetup();
+
+const library = new Library();
+library.setUpAddListener();
 
 function component() {
   const element = document.createElement('div');
@@ -17,11 +27,11 @@ function component() {
 
   // Lodash, now imported by this script
   element.innerHTML = _.join(['JT\'s', 'To-do List'], ' ');
-  element.classList.add('hello');
 
-  btn.innerHTML = 'Click me and check the console!';
+  btn.innerHTML = 'Click me and check console';
   btn.onclick = printMe;
-
+  btn.classList.add('clear-all-btn');
+  element.classList.add('hello');
   element.appendChild(btn);
 
   return element;
