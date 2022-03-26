@@ -1,9 +1,5 @@
-// libraryModule.js
-
-// import _ from 'lodash';
 import StrShelf from './strShelfModule.js';
 import Book from './bookModule.js';
-
 export default class Library {
   shelf = [];
 
