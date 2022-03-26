@@ -7,5 +7,28 @@
 </head>
 <body>
     <h1>To-do List</h1>
+
+    <div class="to-do-container">
+        <div class="to-do-header">
+          <div class="to-do-header-title">
+            Morning to-dos
+          </div>
+          <div class="refresh-btn"></div>
+        </div>
+        <div class="add-new" id="add-new">
+          <input type="text" placeholder="Add to your JL's list..." class="new-input" id="newTitle">
+          <div class="new-input-btn" id="add-btn"></div>
+        </div>
+        
+        <div id="task-container" class="task-container">
+            <div id="frontShelf" class="front-shelf">
+                <!-- Here goes the dynamic tasks -->
+            </div>
+        </div>
+        <button type="button" class="clear-all-btn" id="clear-all-btn">
+            Clear all completed
+        </button>
+    </div>
+
 </body>
 </html>
