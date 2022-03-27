@@ -12,34 +12,64 @@ export default class Library {
 
   frontShelf = document.getElementById('frontShelf');
 
+  clearAllBtn = document.getElementById('clear-all-btn');
+
   removeButton;
+
+  inputField;
+
+  checkboxButton;
+
+  checkedTaskDescription;
 
   static pushToStorage = (obj) => {
     const stringify = JSON.stringify(obj);
-    sessionStorage.setItem('strShelf', stringify);
+    localStorage.setItem('strShelf', stringify);
   }
 
   static displayBook(title, id) {
     return `
-        <div class="box unchecked"></div>
-        <div class="task title-author">${title}</div>
-        <div class="handle removeButton" id="${id}" type="button"></div>
+    <div class="box unchecked"></div>
+    <input class="task taskId${id}" type="text" value="${title}" name="Item1">
+    <div class="handle removeButton" id="${id}" type="button"></div>
+        `;
+  }
+
+  static displayCheckedBook(title, id) {
+    return `
+      <div class="box checked"></div>
+      <input class="task done taskId${id}" type="text" value="${title}" name="Item1">
+      <div class="handle removeButton" id="${id}" type="button"></div>
         `;
   }
 
   pullFromStorage = () => {
-    const parsed = JSON.parse(sessionStorage.getItem('strShelf'));
+    if (!localStorage.getItem('strShelf')) return 0;
+    const parsed = JSON.parse(localStorage.getItem('strShelf'));
     let counter = 1;
     const preShelf = [];
-    for (let i = 0; i < this.shelf.length; i += 1) {
+    const shelfSize = Object.values(parsed).length;
+
+    for (let i = 0; i < shelfSize; i += 1) {
+      if (this.shelf.length === 0) {
+        for (let i = 0; i < shelfSize; i += 1) {
+          this.shelf.push(Object.values(parsed)[i]);
+        }
+      }
       const parsedBook = parsed[`${counter}`];
-      const tempShelf = Library.displayBook(parsedBook.title, counter);
-      preShelf.unshift(tempShelf);
+      let tempShelf = Library.displayBook(parsedBook.title, counter);
+      if (parsedBook.completed) {
+        tempShelf = Library.displayCheckedBook(parsedBook.title, counter);
+      }
+      preShelf.push(tempShelf);
       counter += 1;
     }
+    return preShelf;
+  }
 
+  paintToPage = () => {
+    const preShelf = this.pullFromStorage();
     this.frontShelf.innerHTML = '';
-
     for (let i = 0; i < preShelf.length; i += 1) {
       const createdBook = document.createElement('div');
       createdBook.classList.add('unchecked-slot', 'book');
@@ -47,6 +77,7 @@ export default class Library {
       createdBook.id = i + 1;
       this.frontShelf.appendChild(createdBook);
     }
+    this.setRemoveListeners();
   }
 
   updateShelf = () => {
@@ -57,7 +88,6 @@ export default class Library {
       this.shelf[i].id = counter;
     }
     for (let i = 0; i < this.shelf.length; i += 1) {
-      // GIVES THE BOOK OBJ AN ID #NUMBER
       this.bookshelf[`${this.shelf[i].id}`] = this.shelf[i];
     }
     Library.pushToStorage(this.bookshelf);
@@ -67,28 +97,53 @@ export default class Library {
     this.bookshelf = new StrShelf();
     const book = new Book();
     book.title = title;
-    this.shelf.unshift(book);
+    book.completed = false;
+    this.shelf.push(book);
     this.updateShelf();
+    this.paintToPage();
+    this.setInputFieldListeners();
+    this.setCheckboxFieldListeners();
   }
 
   removeBook = (id) => {
-    this.bookshelf = new StrShelf();
-
-    this.frontShelf.innerHTML = '';
-    this.removeButton = document.querySelectorAll('.removeButton');
-    for (let i = 1; i <= this.shelf.length; i += 1) {
-      if (this.shelf[i - 1].id === parseInt(id, 10)) {
-        this.shelf.splice(i - 1, 1);
+    for (let i = 0; i < this.shelf.length; i += 1) {
+      if (this.shelf[i].id === parseInt(id, 10)) {
+        this.shelf.splice(i, 1);
         this.updateShelf();
       }
-      this.pullFromStorage();
-      this.removeButton = document.querySelectorAll('.removeButton');
-      this.removeButton.forEach((button) => {
-        button.addEventListener('click', (e) => {
-          this.removeBook(e.target.id);
-        });
-      });
+      this.paintToPage();
+      this.setCheckboxFieldListeners();
     }
+  }
+
+  updateTask = (id, text) => {
+    for (let i = 0; i < this.shelf.length; i += 1) {
+      if (this.shelf[i].id === parseInt(id, 10)) {
+        this.shelf[i].title = text;
+        this.updateShelf();
+      }
+    }
+  }
+
+  updateCompletion = (id, completed) => {
+    for (let i = 0; i < this.shelf.length; i += 1) {
+      if (this.shelf[i].id === parseInt(id, 10)) {
+        this.shelf[i].completed = completed;
+        this.updateShelf();
+      }
+    }
+  }
+
+  showUnchecked = () => {
+    const pendingTasks = this.shelf.filter((task) => task.completed === false);
+    this.shelf = [];
+    pendingTasks.forEach((task) => {
+      this.shelf.push(task);
+    });
+    this.updateShelf();
+    this.paintToPage();
+    this.setInputFieldListeners();
+    this.setCheckboxFieldListeners();
   }
 
   setRemoveListeners = () => {
@@ -101,12 +156,48 @@ export default class Library {
   }
 
   setUpAddListener = () => {
-    this.addButton.addEventListener('click', (e) => {
-      e.preventDefault();
+    this.addButton.addEventListener('click', () => {
       this.newBook(this.newTitle.value);
       this.pullFromStorage();
       this.newTitle.value = '';
-      this.setRemoveListeners();
+    });
+  }
+
+  setInputFieldListeners = () => {
+    this.inputField = document.querySelectorAll('.task');
+    this.inputField.forEach((input) => {
+      input.addEventListener('input', (e) => {
+        const text = e.target.value;
+        this.updateTask(e.target.parentElement.id, text);
+      });
+    });
+  }
+
+  setCheckboxFieldListeners = () => {
+    this.checkboxButton = document.querySelectorAll('.box');
+    this.checkboxButton.forEach((checkbox) => {
+      checkbox.addEventListener('click', (e) => {
+        let taskChecked = false;
+        const crossTask = document.querySelector(`.taskId${e.target.parentElement.id}`);
+        if (e.target.classList.contains('unchecked')) {
+          taskChecked = true;
+          crossTask.classList.add('done');
+          e.target.classList.toggle('checked');
+          e.target.classList.toggle('unchecked');
+        } else if (e.target.classList.contains('checked')) {
+          taskChecked = false;
+          crossTask.classList.remove('done');
+          e.target.classList.toggle('checked');
+          e.target.classList.toggle('unchecked');
+        }
+        this.updateCompletion(e.target.parentElement.id, taskChecked);
+      });
+    });
+  }
+
+  setClearAll = () => {
+    this.clearAllBtn.addEventListener('click', () => {
+      this.showUnchecked();
     });
   }
 }
