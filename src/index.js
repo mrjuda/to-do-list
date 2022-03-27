@@ -5,3 +5,6 @@ const library = new Library();
 
 library.paintToPage();
 library.setUpAddListener();
+
+// library.setInputFieldListeners();
+// library.setCheckboxFieldListeners();
