@@ -177,8 +177,12 @@ body ul {
 .to-do-container ul .unchecked-slot .task,
 .to-do-container .task-container li .task,
 .to-do-container .task-container .unchecked-slot .task {
+  padding: 0.2rem;
+  font-size: 1.2rem;
   text-align: left;
-  margin: 0.4rem;
+  margin: 0.2rem;
+  border: none;
+  outline: none;
 }
 
 .to-do-container ul li .task::before,

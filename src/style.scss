@@ -125,8 +125,12 @@ body {
       }
 
       .task {
+        padding: 0.2rem;
+        font-size: 1.2rem;
         text-align: left;
-        margin: 0.4rem;
+        margin: 0.2rem;
+        border: none;
+        outline: none;
       }
 
       .task::before {
