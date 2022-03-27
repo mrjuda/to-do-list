@@ -35,6 +35,7 @@ export default class Library {
         `;
   }
 
+  // Adds a unique class so it can be called by the addeventlistener later
   static displayCheckedBook(title, id) {
     return `
       <div class="box checked"></div>
@@ -194,6 +195,8 @@ export default class Library {
       });
     });
   }
+
+  // Sets the listener for the clear button
 
   setClearAll = () => {
     this.clearAllBtn.addEventListener('click', () => {
