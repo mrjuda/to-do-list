@@ -54,7 +54,7 @@ export default class Library {
           this.shelf.push(Object.values(parsed)[i]);
         }
       }
-      //Get the completed value of parsed book
+      // Get the completed value of parsed book
       const parsedBook = parsed[`${counter}`];
       let tempShelf = Library.displayBook(parsedBook.title, counter);
       if (parsedBook.completed) {
