@@ -9,7 +9,7 @@ This is a minimalist version of a To-do List website.
 - Webpack
 
 ## 📺 Live Demo
-- Live version: N/A
+- Live version: [mrjuda.github.io/to-do-list](https://mrjuda.github.io/to-do-list/)
 - Mobile version: N/A
 
 ## ⚙️ Run this this app locally
