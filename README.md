@@ -9,7 +9,7 @@ This is a minimalist version of a To-do List website.
 - Webpack
 
 ## 📺 Live Demo
-- Live version: [mrjuda.github.io/to-do-list](https://mrjuda.github.io/to-do-list/)
+- Live version: [mrjuda.github.io/to-do-list](https://mrjuda.github.io/to-do-list/index.html)
 
 ## ⚙️ Run this this app locally
 Follow [these instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) in order to clone this repository and run this app locally.
